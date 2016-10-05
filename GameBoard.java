@@ -13,20 +13,20 @@ import java.util.Random;
  */
 public class GameBoard {//start GameBoard
     
-    private final int MAXROWS = 20;
-    private final int MAXCOL = 20;
     private boolean[][] matrixArray = new boolean[MAXROWS][MAXCOL];
     final String delim2 = "[ ]+";
     final String delim = "[\n]+";
+    int worldSize;
     
-    public GameBoard(){//start matrix contructor
+    public GameBoard(int maxSize){//start matrix contructor
         randomBoard();
+        this.worldSize = maxSize
     }//end matrix constructor
     
     private void randomBoard(){//start random board
-        for(int i = 0; i < 20; i++){//start row for
+        for(int i = 0; i < this.worldSize; i++){//start row for
             
-            for(int j = 0; j < 20; j++){//start column for
+            for(int j = 0; j < this.worldSize; j++){//start column for
                 matrixArray[i][j] = Math.random() < 0.5;
                 
                 //matrixArray[i][j] = false;
@@ -76,9 +76,9 @@ public class GameBoard {//start GameBoard
     public void setGameBoard(boolean[][] oldGame){//start setGameBoard
         
         
-        for(int i = 0; i < MAXROWS; i++){//start row for
+        for(int i = 0; i < this.worldSize; i++){//start row for
             
-            for(int j = 0; i < MAXCOL; j++){//start column for
+            for(int j = 0; i < this.worldSize; j++){//start column for
                 matrixArray[i][j] = oldGame[i][j];
             }//end column for
             
@@ -102,9 +102,9 @@ public class GameBoard {//start GameBoard
     public String matrixToString(){//start matrixToString
         String matStr = "";
         
-        for(int i = 0; i < MAXROWS; i++){//start row for
+        for(int i = 0; i < this.worldSize; i++){//start row for
             
-            for(int j = 0; j < MAXCOL; j++){//start column for
+            for(int j = 0; j < this.worldSize; j++){//start column for
                 
                 if(matrixArray[i][j] == true){//start if
                     matStr += 1 + " ";
@@ -146,10 +146,10 @@ public class GameBoard {//start GameBoard
     }//end countSurrounding 
     
     public void nextGen(){//start nextGen
-        boolean[][] nextBoardArray = new boolean[MAXROWS][MAXCOL];
-        for(int i = 0; i < MAXROWS; i++){//start row for
+        boolean[][] nextBoardArray = new boolean[this.worldSize][this.worldSize];
+        for(int i = 0; i < this.worldSize; i++){//start row for
             
-            for(int j = 0; j < MAXCOL; j++){//start column for
+            for(int j = 0; j < this.worldSize; j++){//start column for
                 
                 int neighborsStatus = 0;
                 neighborsStatus = countSurrounding(i, j);
@@ -171,49 +171,14 @@ public class GameBoard {//start GameBoard
             }//end column for
         }//end row for
         
-        for(int i = 0; i < MAXROWS; i++){//start row for
+        for(int i = 0; i < this.worldSize; i++){//start row for
             
-            for(int j = 0; j < MAXCOL; j++){//start column for
+            for(int j = 0; j < this.worldSize; j++){//start column for
                 
                 matrixArray[i][j] = nextBoardArray[i][j];
                 
             }
         }
     }//end nextGen
-    
-    /*
-    public void checkBirths(){//start checkBirths
-        for(int i = 0; i < MAXROWS; i++){//start row for
-            
-            for(int j = 0; j < MAXCOL; j++){//start column for
-                
-                if(matrixArray[i][j] == false && countSurrounding(i, j) == 3){//start if
-
-                    matrixArray[i][j] = true;
-                    
-                }//end if 
-                //matrixArray[i][j] = oldGame[i][j];
-            }//end column for
-            
-        }//end row for
-    }//end checkBirths
-    
-    public void grimReaper(){//start grimReaper
-        for(int i = 0; i < MAXROWS; i++){//start row for
-            
-            for(int j = 0; j < MAXCOL; j++){//start column for
-                
-                if(matrixArray[i][j] == true && (countSurrounding(i, j) > 3 || countSurrounding(i, j) < 2)){//start if
-                    
-                    matrixArray[i][j] = false;
-                    
-
-                }//end if 
-                //matrixArray[i][j] = oldGame[i][j];
-            }//end column for
-            
-        }//end row for
-    }//end grimReaper
-    */
     
 }//end GameBoard
