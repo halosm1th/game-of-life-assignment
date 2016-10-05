@@ -16,8 +16,13 @@ public class GameOfLife {//start class
      */
     public static void main(String[] args) {//start main
         // TODO code application logic here
-        
-        GameBoard mainGame = new GameBoard();
+        int size;
+        if(arg.Length() != 1){
+            size = Integer.PraseInt(args[0]);
+        }else{
+            size = 20;
+        }
+        GameBoard mainGame = new GameBoard(size);
         
         
         mainGame.printGameBoard();
